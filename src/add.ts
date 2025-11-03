@@ -6,8 +6,7 @@ export function add(
   const sum = a + b;
   if (options?.roundTo != null) {
     const factor = Math.pow(10, options.roundTo);
-    // buggy: floor statt "richtig" runden
-    return Math.floor(sum * factor) / factor;
+    return Math.round(sum * factor) / factor;
   }
   return sum;
 }
