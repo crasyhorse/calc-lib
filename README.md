@@ -2,8 +2,12 @@
 
 Ein einfache JavaScript-Bibliothek, welche die vier Grundrechenarten abbildet.
 
-## Build
-npm run build
+## Funktionen
+- `add(a, b, { roundTo })`
+  - Beispiel: `add(0.1, 0.2, { roundTo: 2 }) // => 0.3`
+- `subtract(a, b)`
+- `multiply(a, b)`
+- `divide(a, b)` (wirft Error bei Division durch 0)
 
-## Test
+## Tests
 npm test
