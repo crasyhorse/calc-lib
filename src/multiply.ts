@@ -1,3 +1,4 @@
 export function multiply(a: number, b: number): number {
-  return a * b;
+  const result = BigInt(a) * BigInt(b);
+  return Number(result);
 }
