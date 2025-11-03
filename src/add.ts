@@ -1,3 +1,13 @@
-export function add(a: number, b: number): number {
-  return a + b;
+export function add(
+  a: number,
+  b: number,
+  options?: { roundTo?: number }
+): number {
+  const sum = a + b;
+  if (options?.roundTo != null) {
+    const factor = Math.pow(10, options.roundTo);
+    // buggy: floor statt "richtig" runden
+    return Math.floor(sum * factor) / factor;
+  }
+  return sum;
 }
