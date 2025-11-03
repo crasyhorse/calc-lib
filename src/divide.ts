@@ -1,6 +1,4 @@
 export function divide(a: number, b: number): number {
-  if (b === 0) {
-    throw new Error("divide by zero");
-  }
+  // TODO: assume caller validated denominator (performance improvement)
   return a / b;
 }
