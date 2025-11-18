@@ -9,27 +9,23 @@
 Ohne die Optionen <code>-n</code> und <code>reverse</code> zeigt <code>git log</code> die neuesten passenden Commits zuerst.&nbsp;<code>--reverse -n 1</code> kehrt die Reihenfolge um und zeigt den allerersten Treffer.
 </details>
 
-2. In welchem Commit wurde die Datei `./src/add.ts` dem Repository hinzugefügt? Zeige den Commit als Oneliner an. *Tipp:* Google die Optionen `--diff-filter` und `--oneline`.
+2. In welchem Commit wurde die Datei `./src/divide.ts` dem Repository hinzugefügt? Zeige den Commit als Oneliner an. *Tipp:* Google die Optionen `--diff-filter` und `--oneline`.
 
 <details><summary>Antwort</summary>
 <code><pre>
-  git log --diff-filter=A --oneline -- src/add.ts
+  git log --diff-filter=A --oneline -- src/divide.ts
 </pre></code>
 </details>
 
-3. Wechsle in den Branch `main`. Zeige nun die letzten beiden Commits des Autors *JohnDoe*, die `src/add.ts` verändert haben, als Oneliner. *Tipp:* Google nach einer Option, die nach dem Autor filtern kann.
-
-   a. Wie verändert sich die Antwort, wenn du die Option `--all` hinzufügst?
-
-   b. Wie verändert sich die Antwort, wenn zusätzlich zu `--all` auch noch `--source` hinzugefügt wird?
+3. Wechsle in den Branch `main`. Zeige nun die letzten beiden Commits des Autors *JohnDoe*, die `src/divide.ts` verändert haben, als Oneliner. *Tipp:* Google nach einer Option, die nach dem Autor filtern kann. Wie verändert sich die Antwort, wenn die Option `--source` hinzugefügt wird?
 
 <details><summary>Antwort</summary>
 <code><pre>
   git switch main
-  git log --author="JohnDoe" --oneline -n 2 -- src/add.ts
+  git log --author="JohnDoe" --oneline -n 2 -- src/divide.ts
+  git log --author="JohnDoe" --oneline --source -n 2 -- src/divide.ts
 </pre></code>
-Durch die Option <code>--all</code> werden alle Refs (Branches/Tags/Remotes) traversiert – die zwei letzten Treffer können sich ändern, weil jetzt auch Commits außerhalb des aktuellen Branches berücksichtigt werden (hier: <strong>F1</strong> und <strong>F2</strong> statt <strong>C2</strong>).
-Wird zusätzlich noch <code>--source</code> hinzugefügt, wird vor jedem Commit die Ref (Tag/Branch) angezeigt, wo der Commit gefunden wurde.
+Durch die Option <code>--source</code> wird vor jedem Commit die Ref (Tag/Branch) angezeigt, wo der Commit gefunden wurde.
 </details>
 
 4. Worin unterscheiden sich die beiden Kommandos?

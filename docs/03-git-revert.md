@@ -37,7 +37,7 @@ Git unterscheidet zwischen <strong>Porcelain Commands</strong> und <strong>Plumb
 
 3. Bearbeite folgendes Szenario:
 
-    a. Mache die Änderungen aus Aufgabe Nummer 3 rückgängig mit `git reset --hard HEAD~1`.
+    a. Mache die Änderungen aus Aufgabe Nummer 2 rückgängig mit `git reset --hard HEAD~1`.
 
     b. Erstelle Revert-Commits für die beiden Commits **C7 - Revert "C5 - perf: optimize divide() by removing zero check"** und **C6 - test: add safety test for divide() zero denominator**.
 
@@ -111,6 +111,7 @@ Der Parameter <code>--no-commit</code> verhindert, dass ein Kommando wie z. B. <
   git switch feature/rounding-option
   git log --all --grep="F1" --pretty=format:"%h"
   git revert --no-commit 9db134f
+  git diff --name-only --diff-filter=U --relative
   git diff
   git show :1:src/add.ts
   git show :2:src/add.ts

@@ -1,6 +1,6 @@
 # Übungsblatt: Restore files
 
-1. Füge der Datei `src/multiply.ts` in Zeile 1 den Kommentar **This function multiplies two numbers** hinzu und speichere die Datei. Mache diese Änderung mit Hilfe von git rückgängig (der Kommentar soll wieder verschwinden).
+1. Füge der Datei `src/multiply.ts` in Zeile 1 den Kommentar **This function multiplies two numbers** hinzu und speichere die Datei. Mache diese Änderung mit Hilfe von Git rückgängig (der Kommentar soll wieder verschwinden).
 
 <details><summary>Antwort</summary>
 <code><pre>
@@ -55,5 +55,5 @@ Die Referenz <code>HEAD</code> funktioniert nur, wenn sich der Benutzer aktuell 
 6. Führe erneut das Kommando `git restore --source=experiment/precision --worktree src/multiply.ts`. Was passiert, wenn du jetzt `git restore --source=main --worktree -p src/multiply.ts` ausführst?
 
 <details><summary>Antwort</summary>
-Der Parameter <code>-p</code> bewirkt, dass `git restore` interaktiv abläuft, d. h. der Benutzer kann einzelne Änderungen rückgängig machen, während er andere bestehen lässt.
+Der Parameter <code>-p</code> bewirkt, dass <code>git restore</code> interaktiv abläuft, d. h. der Benutzer kann einzelne Änderungen rückgängig machen, während er andere bestehen lässt.
 </details>

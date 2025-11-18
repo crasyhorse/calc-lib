@@ -29,7 +29,7 @@ Um den Branch bugfix/readme wiederherstellen zu können, muss im Reflog nach ein
 <details><summary>Antwort</summary>
 <code><pre>
   git switch feature/modulo
-  git reflog --date=iso -n 1 --grep-reflog 'rebase start'
+  git reflog --date=iso -n 1 --grep-reflog 'rebase (start)'
   git reset --hard 406c19d
   git merge-base --is-ancestor 406c19d feature/modulo && echo "OK: 406c19d ist wieder die Branch-Basis"
 </pre></code>
@@ -62,9 +62,9 @@ In der zweiten Lösung wird davon ausgegangen, dass das <code>git merge</code> d
 <code><pre>
   git switch feature/modulo
   git reflog --grep-reflog "reset: moving"
-  git reset --hard 406c19d^1
+  git reset --hard 406c19d
 </pre></code>
-Um dieses Problem zu lösen, muss im Reflog nach einem Eintrag mit der Beschreibung <strong>reset: moving to HEAD~2</strong> gesucht werden. Dies ist der Eintrag, der Dokumentiert, dass der <code>HEAD</code>-Pointer des Branches um zwei Commits, von M4 nach M2, versetzt wurde. Im obigen Beispiel ist dies <code>406c19d</code>. Mit der Angabe <code>406c19d^1</code> wird das Commit referenziert, welches eine Position weiter zurück liegt (das Commit, wo <strong>feature/modulo</strong> noch auf das Commit M4 gezeigt hat). Das könnte z. B. ein Eintrag mit der Beschreibung <strong>checkout: moving from main to feature/modulo</strong> sein. Das <code>git reset --hard</code> setzt den <code>HEAD</code>-Pointer wieder zurück auf das Commit M4.
+Um dieses Problem zu lösen, muss im Reflog nach einem Eintrag mit der Beschreibung <strong>reset: moving to HEAD~2</strong> gesucht werden. Dies ist der Eintrag, der Dokumentiert, dass der <code>HEAD</code>-Pointer des Branches um zwei Commits, von M4 nach M2, versetzt wurde. Im obigen Beispiel ist dies <code>35a1cd4</code>. Ausgehend von dieser Id kann nun ein Commit gesucht werden, welches zum Zurücksetzen des Branches genutzt werden kann. Im obigen Beispiel ist dies <code>406c19d</code>. Das könnte z. B. ein Eintrag mit der Beschreibung <strong>checkout: moving from main to feature/modulo</strong> sein. Das <code>git reset --hard</code> setzt den <code>HEAD</code>-Pointer wieder zurück auf das Commit M4.
 </details>
 
 4. Führe das Skript `scripts/merge-rounding-option.sh` aus, so wie unten abgebildet. Am Ende des Skripts wird angezeigt, welches Problem vorliegt.
@@ -83,7 +83,7 @@ Um dieses Problem zu lösen, muss im Reflog nach einem Eintrag mit der Beschreib
 <code><pre>
   git switch main
   git log --oneline --merges -n 1
-  git show --format="%h %s" f62658e^1
+  git show --no-patch --format="%h %s" f62658e^1
   git reset --merge 3badfab
 </pre></code>
 
@@ -93,7 +93,7 @@ Um dieses Problem zu lösen, muss im Reflog nach einem Eintrag mit der Beschreib
   git revert -m 1 f62658e
 </pre></code>
 <p>
-In der ersten Lösung wird <code>git log</code> mit dem Parameter <code>--merges</code> genutzt, um nur Einträge anzuzeigen, die sich auf ein <code>git mege</code> beziehen. Mit <code>git show --format="%h %s" f62658e^1</code> werden dann Hash und Commit-Message des Commits angezeigt, welches eine Position weiter zurück im Log steht. Dessen Id wurde nun für das Zurücksetzen des Branchs genutzt. Alternativ könnte auch die Angabe <code>f62658e^1</code> genutzt werden. Der Parameter <code>--merge</code> des Kommandos <code>git reset</code> sorgt dafür, dass Dateien, welche geändert aber noch nicht committed wurden (Unterschiede zwischen Working Directory und Staging Area), nicht zurückgesetzt werden bzw. das deren Änderungen beibehalten werden. Mit <code>git reset --hard</code> wurde das gesamt Working Directory zurückgesetzt werden.
+In der ersten Lösung wird <code>git log</code> mit dem Parameter <code>--merges</code> genutzt, um nur Einträge anzuzeigen, die sich auf ein <code>git merge</code> beziehen. Mit <code>git show --format="%h %s" f62658e^1</code> werden dann Hash und Commit-Message des Commits angezeigt, welches eine Position weiter zurück im Log steht. Dessen Id wurde nun für das Zurücksetzen des Branchs genutzt. Alternativ könnte auch die Angabe <code>f62658e^1</code> genutzt werden. Der Parameter <code>--merge</code> des Kommandos <code>git reset</code> sorgt dafür, dass Dateien, welche geändert aber noch nicht committed wurden (Unterschiede zwischen Working Directory und Staging Area), nicht zurückgesetzt werden bzw. das deren Änderungen beibehalten werden. Mit <code>git reset --hard</code> wurde das gesamt Working Directory zurückgesetzt werden.
 </p>
 <p>
 Die zweite Lösung benutzt das Kommando <code>git revert</code>, um ein neues Commit zu erzeugen, welches die Änderungen, die durch das <code>git merge</code> enstanden sind, rückgängig zu machen. Mit Hilfe der Angabe <code>-m 1 f62658e</code> wird auf das Parent Commit (ours) von <code>f62658e</code> verweisen. Dies ist das Commit, auf das der <code>HEAD</code>-Pointer im <code>main</code>-Branch vor dem <code>git merge</code> gezeigt hat. Würde statt dessen <code>-m 2 f62658e</code> benutzt, wäre dies das Commit, auf das der <code>feature/rounding-option</code> gezeigt hat (theirs).
