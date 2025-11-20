@@ -50,7 +50,7 @@ Mit der Syntax <code>c3-mul-div..c7-bug-divide-fixed</code> wird der Unterschied
 
 <details><summary>Antwort</summary>
 <code><pre>
-  git log -S "DEBUG start calc" --reverse -n 1 -p -- src/cli.ts
+  git log -S "DEBUG start calc" --reverse -p -- src/cli.ts
 </pre></code>
 Ohne die Optionen <code>-n</code> und <code>reverse</code> zeigt <code>git log</code> die neuesten passenden Commits zuerst.&nbsp;<code>--reverse -n 1</code> kehrt die Reihenfolge um und zeigt den allerersten Treffer.
 </details>
